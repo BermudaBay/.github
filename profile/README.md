@@ -1,3 +1,5 @@
+![banner](./banner.png)
+
 ## Vision
 
 Becoming the go-to privacy provider in EVM ecosystems and future fintech.
