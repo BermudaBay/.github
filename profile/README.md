@@ -2,7 +2,7 @@
 
 ## Vision
 
-Becoming the go-to privacy provider in EVM ecosystems and future fintech.
+Becoming the go-to privacy provider in the Ethereum ecosystem and future fintech.
 
 ## Mission
 
