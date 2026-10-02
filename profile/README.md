@@ -51,7 +51,7 @@ Compliance is built in, not bolted on:
 
 A transaction runs in eight steps: **request → screen → prove → submit → broadcast → check → verify → commit**.
 
-- **Client**: the Bermuda SDK holds spending and viewing keys and generates the ZK proofs (Noir and Barretenberg). It also covers Safe multisigs, x402 and recovery. Works with EOAs, Safe, ERC-4337 and EIP-7702 wallets.
+- **Client**: the Bermuda SDK holds spending and viewing keys and generates the ZK proofs. It also covers Safe multisigs, x402 and recovery. Works with EOAs, Safe, ERC-4337 and EIP-7702 wallets.
 - **Off-chain services**: relayers submit and broadcast transactions and double as the x402 facilitator. The compliance engine screens funds and issues attestations, a FROST server coordinates Safe signers, and an indexer syncs UTXOs and events.
 - **On-chain**: the Bermuda contracts handle deposits, sends, withdrawals, payments and DeFi. The gateway runs the issuer's policy checks and the verifiers check every proof. The registry maps `.bay` names to addresses, and account contracts support Safe 1.5, stealth accounts and EIP-7702.
 
