@@ -1,73 +1,122 @@
-![banner](./banner.png)
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="./logo-white.svg">
+    <img src="./logo-dark.svg" alt="Bermuda" height="56">
+  </picture>
+</p>
 
-## Vision
+<h3 align="center">Private rails for onchain assets.</h3>
 
-Becoming the go-to privacy provider in the Ethereum ecosystem and future fintech.
+<p align="center">
+  Compliant privacy for regulated money on public chains.<br>
+  The issuer's policy runs inside every private transfer.
+</p>
 
-## Mission
+<p align="center">
+  <a href="https://bermudabay.xyz">Website</a> ·
+  <a href="https://docs.bermudabay.xyz">Docs</a> ·
+  <a href="https://x.com/bermudabayzk">X</a> ·
+  <a href="https://calendly.com/bermudabayxyz">Talk to us</a>
+</p>
 
-Our long‑term mission is to make privacy:
+---
 
-- **Normal**: Every wallet user has access to private low-risk DeFi
-- **Compliant**: Privacy systems can satisfy regulators with optional compliance proofs without leaking identity (e.g. POI, viewing keys, zkKYC)
-- **Composable**: Dapps and middleware can integrate seamlessly
-- **Neutral**: Bermuda is not a wallet, not a chain, not a custodian, but an open infra layer
+## Why Bermuda
+
+Every onchain payment is public. Anyone can read your balance, who you pay and your next trade. Forever.
+
+Bermuda is a drop-in privacy and compliance layer for wallets, institutions and any EVM app. Balances, counterparties and amounts stay confidential, while every transfer is screened against the issuer's policy. No contract changes, no new chain, no wrapped tokens.
+
+## How it works
+
+1. **Shield**: native tokens go in (USDC, EURC, tokenized funds). No wrapping, no new chain.
+2. **Enforce**: sanctions, limits and allow lists run inside every private transfer.
+3. **Control**: issuers keep per-user powers (freeze, clawback and a viewing key), private to everyone else.
+
+Compliance is built in, not bolted on:
+
+- **Screened at the door**: funds are checked against issuer policy before they enter.
+- **Enforced on every transfer**: the issuer's rules run inside each private transfer.
+- **Provenance travels with the asset**: no central database.
+- **Selective disclosure**: auditors see what they are entitled to, nothing more.
 
 ## Architecture
 
-We are building a modular privacy layer adaptable to different use cases. At its core is our shielded hyperpool. "Hyper" because it isn't just an isolated privacy pool but rather a full-blown privacy layer providing essential functions such as P2P transactions and swaps by itself in addition to seamless access to Ethereum's most popular dapps through shielding adapters.
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="./architecture-dark.svg">
+    <img src="./architecture.svg" alt="Bermuda architecture: client, off-chain services and on-chain contracts" width="880">
+  </picture>
+</p>
 
-From a bird's view Bermuda can be seen as an universal privacy layer that sits in between wallets and dapps.
+A transaction runs in eight steps: **request → screen → prove → submit → broadcast → check → verify → commit**.
 
-![bermudalayer](https://hackmd.io/_uploads/HJUy-VV2el.png)
+- **Client**: the Bermuda SDK holds spending and viewing keys and generates the ZK proofs. It also covers Safe multisigs, x402 and recovery. Works with EOAs, Safe, ERC-4337 and EIP-7702 wallets.
+- **Off-chain services**: relayers submit and broadcast transactions and double as the x402 facilitator. The compliance engine screens funds and issues attestations, a FROST server coordinates Safe signers, and an indexer syncs UTXOs and events.
+- **On-chain**: the Bermuda contracts handle deposits, sends, withdrawals, payments and DeFi. The gateway runs the issuer's policy checks and the verifiers check every proof. The registry maps `.bay` names to addresses, and account contracts support Safe 1.5, stealth accounts and EIP-7702.
 
-Core components of Bermuda comprise its smart contracts, i.e. the hyperpool, ZK-proof verifiers, adapters (ERC-4626, DEXs, Safe, etc.), the only core off-chain component is the prover stack.
+## Built for
 
-To facilitate absolute self-custody our proving stack is all client-side, the only exception being ZK storage proofs that are for now, development and testnet purposes, being run on servers. We are actively working on efficient and portable client-side proving of ZK MPT proofs.
+| Who | What Bermuda adds |
+|---|---|
+| **Wallets & neobanks** | A private account inside the wallet. Every issuer's assets, one integration. |
+| **Custodians** | Confidential custody and settlement. |
+| **Banks** | On-prem, in the bank's own stack. |
+| **Issuers** | Rules set once, enforced everywhere. |
+| **Institutions** | Atomic DvP, PvP and DvD settlement, repo and OTC, account recovery and confidential DeFi. |
+| **AI agents** | Private [x402](https://docs.bermudabay.xyz/sdk/x402) payments: payer, payee, amount and frequency stay hidden. |
 
-We consider portable, i.e. efficient on low-grade consumer hardware, client-side ZK proving, especially of MPT proofs, a cornerstone for self-custodial privacy applications, because client-side ZK MPT proofs enable private proving of almost anything on Ethereum.
+## Products
 
-## Integrations
+### MetaMask Snap
 
-Current design partners include major wallets and ecosystems that we are exploring privacy use cases with:
+A private account right inside MetaMask. Make funds private or public with one tap, send privately without paying gas, and earn yield on your private balance.
 
-- Native wallet integrations
-  - Shielded balances, transactions, staking, and swaps
-- Shielded ERC-4626 vaults
-- Shielded crypto debit card payments
-- Smart account support for all of the above
+<p align="center">
+  <img src="./snap-home.png" alt="Bermuda Snap: private balance, yield and actions" width="280">
+  &nbsp;&nbsp;&nbsp;
+  <img src="./snap-sent.png" alt="Bermuda Snap: a sent private payment" width="280">
+</p>
 
-Beyond that we are in talks with payment providers as well as asset managers and are actively looking for further partners to shape our product(s) with.
+### Private Safe
 
-UX is a major focus for us and we want to see privacy features seamlessly integrated into wallets, just like Vitalik does:
+A Safe{Wallet}-style dashboard for Safes whose funds live in Bermuda's shielded pool. Balances, recipients and amounts stay private. Spend authority is a FROST threshold signature across the Safe's owners, so no single owner ever holds the spending key. Treasuries see private and public balances side by side and can send, swap and earn privately.
 
-![What I would love to see in a wallet](https://hackmd.io/_uploads/BkS9Ikwnxl.png)
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="./safe-dashboard-dark.png">
+    <img src="./safe-dashboard.png" alt="Private Safe dashboard: private and public balances, assets, positions and pending multisig transactions" width="880">
+  </picture>
+</p>
 
-To that end we have built a MetaMask Snap featuring shielded P2P transfers and swaps. Soon to be realeased.
+### Wallet Development Kit
 
-![snap_home_transfer](https://hackmd.io/_uploads/Hk7CD9P3ll.png)
+[`wdk-wallet-bermuda`](https://github.com/BermudaBay/wdk-wallet-bermuda) brings Bermuda accounts to wallets built on Tether's WDK.
 
-Another major integration is our current work on a native Safe web wallet integration, i.e. a fork with minimal adaptions to enable shielded P2P transactions (and more) for any Safe.
+## For builders
 
-## Roadmap
+One SDK. Ship privacy in days.
 
-### V1 (WIP)
+```ts
+import { init } from '@bermuda/sdk'
 
-- Major wallet integrations
-- Shielded crypto debit cards
-- Fully shielded swaps
-- DeFi adapters
-  - Shielding DEX adapters
-  - Shielding ERC-4626 vault adapters
-- Smart account support
+const sdk = init('base')
 
-### V2
+// bermuda account
+const account = await sdk.account({ signer })
 
-- Shielded x402
-- Shielded retail checkouts
-- Shielding stack for asset managers
-- Shielded on-off-ramps and remittances
+// private, gasless transfer
+const tx = await sdk.transfer({
+  spender: account,
+  token: sdk.config.USDC,
+  amount: 1_000_000_000n,
+  to: recipient,
+})
+await sdk.relay(tx)
+```
 
-## Ecosystem Partners
+Read the [quickstart](https://docs.bermudabay.xyz/sdk/quickstart) to get going.
 
-Gnosis helped us bootstrap Bermuda and we are deeply aligned with Ethereum's values in general and the EF's privacy roadmap in particular as we have been focusing on cornerstones such as wallet integrations and smart account support. We would love to align even more with ecosystem partners, collaborate on intersecting subject matters and attain synergies.
+## Get in touch
+
+We are integrating with wallets, custodians, banks and issuers now. [Talk to us](https://calendly.com/bermudabayxyz) or write to [gm@bermudabay.xyz](mailto:gm@bermudabay.xyz).
